@@ -40,11 +40,14 @@ export default function Home({ _ideas }) {
   }
 
   const removeIdea = (timestamp) => {
-    setIdeas(() => {
-      const newIdeas = ideas.filter(idea => idea.timestamp !== timestamp)
-      saveIdeas(newIdeas, false);
-      return newIdeas;
-    })
+    const idea = ideas.find(idea => idea.timestamp === timestamp);
+    if (idea && confirm(`Are you sure you want to delete the idea "${idea.content}"?`) === true) {
+      setIdeas(() => {
+        const newIdeas = ideas.filter(idea => idea.timestamp !== timestamp)
+        saveIdeas(newIdeas, false);
+        return newIdeas;
+      })
+    }
   }
 
   const saveIdeas = async (__ideas, doAlert=true) => {
