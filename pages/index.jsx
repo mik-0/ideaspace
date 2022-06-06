@@ -30,12 +30,13 @@ export default function Home({ _ideas }) {
   }, [])
 
   const addIdea = (idea) => {
-    setIdeas([...ideas, {
+    const newIdeas = [...ideas, {
       ...idea,
       timestamp: Date.now(),
-    }])
-
+    }];
+    setIdeas(newIdeas)
     setAdding(false)
+    saveIdeas(newIdeas, false)
   }
 
   const removeIdea = (timestamp) => {
@@ -88,7 +89,7 @@ export default function Home({ _ideas }) {
 
         <div className='mt-4 flex gap-2 items-center'>
           <Button onClick={() => setAdding(true)}><i className="text-slate-600 fa-solid fa-plus"></i>&nbsp; Add</Button>
-          { ideas && ideas.length > 0 && <Button onClick={e => saveIdeas(ideas)}><i className="text-slate-600 fa-solid fa-save"></i>&nbsp; Save</Button> }
+          {/* { ideas && ideas.length > 0 && <Button onClick={e => saveIdeas(ideas)}><i className="text-slate-600 fa-solid fa-save"></i>&nbsp; Save</Button> } */}
           { saving && <i className="ml-4 fa-solid fa-floppy-disk"></i> }
         </div>
 
@@ -101,7 +102,6 @@ export default function Home({ _ideas }) {
               : <p className='mt-5 text-slate-700 text-xl'>No ideas yet. Press the &apos;Add&apos; button to add a new Idea!</p>
           }
 
-          { ideas && ideas.length > 0 && (<p className='text-slate-500'>Don&apos;t forget to save after making any changes!</p>)}
         </div>
         {
           adding && (

@@ -55,8 +55,8 @@ const IdeaForm = ({ onAdd, onClose }) => {
 
     return (
         <div className='mt-28 sm:mt-20 relative h-auto'>
-            <div className='ideaForm w-[95%] sm:w-[50%]'>
-                <form className='max-h-[600px] overflow-y-auto p-5 bg-white/[85%] rounded'>
+            <div className='shadow-lg ideaForm w-[95%] sm:w-[50%]'>
+                <form className='max-h-[600px] overflow-y-auto p-5 bg-white/[85%] rounded-md'>
                     <div className="flex items-center mb-4">
                         <h1 className='flex-grow text-2xl font-medium'>New Idea</h1>
                         <i onClick={() => onClose()} className="cursor-pointer text-slate-600 fa-solid fa-times"></i>
