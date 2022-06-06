@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -13,4 +17,47 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.text-gradient {
+  background: #4FACFE;
+  background: linear-gradient(to right, #4FACFE 0%, #3AFEDD 79%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.m-gradient {
+  background: #e0c3fc;
+  background: linear-gradient(to right, #e0c3fc 0%, #8ec5fc 79%);
+}
+
+.c-gradient {
+  background-image: linear-gradient(to left, #e5edf1 0%, #f4f8fa 100%);
+}
+
+.spin {
+  animation: spin 1s infinite linear;
+  transform-origin: center center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ideaForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ideaForm label {
+  font-weight: 500;
 }
