@@ -54,7 +54,7 @@ const IdeaForm = ({ onAdd, onClose }) => {
 
 
     return (
-        <div className='mt-28 sm:mt-20 relative h-auto'>
+        <div className='mt-[100px] sm:mt-20 relative h-auto'>
             <div className='shadow-lg ideaForm w-[95%] sm:w-[50%]'>
                 <form className='max-h-[600px] overflow-y-auto p-5 bg-white/[85%] rounded-md'>
                     <div className="flex items-center mb-4">
