@@ -20,6 +20,8 @@ class MyDocument extends Document {
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin=''></link>
                     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
                     <script src="https://kit.fontawesome.com/d3421d6ab0.js" crossOrigin='anonymous' async></script>
+                    <link rel="shortcut icon" href="/favicon.ico" />
+                    <link rel="apple-touch-icon" href="/favicon.png"></link>
             </Head>
             <body>
             <Main />
