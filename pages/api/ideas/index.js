@@ -7,11 +7,11 @@ export default async function handler(req, res) {
 
     switch (req.method) {
         case 'PUT':
-            put(req, res, client);
+            put(req, res, client).catch(e => console.error(e));
             break;
         
         case 'GET':
-            get(req, res, client);
+            get(req, res, client).catch(e => console.error(e));
             break;
     
         default:
