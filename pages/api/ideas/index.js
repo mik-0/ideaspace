@@ -40,7 +40,20 @@ const get = (req, res, client) => {
 }
 
 const put = (req, res, client) => {
+
     return new Promise((resolve, reject) => {
+
+        if (req.body.ideas == null) {
+            res.status(400).json({ error: 'Bad Request', ideas: req.body.ideas });
+            reject();
+            return;
+        }
+
+        if (req.body.password !== process.env.PASSWORD) {
+            res.status(401).json({ error: 'Unauthorized', ideas: req.body.ideas });
+            reject();
+            return;
+        }
 
         const db = client.db(process.env.MONGODB_DB_NAME);
         const collection = db.collection(process.env.MONGODB_COLLECTION);
@@ -48,26 +61,27 @@ const put = (req, res, client) => {
         collection.deleteMany({}, (err, result) => {
             if (err) {
                 console.error(err);
-                res.status(500).json({ error: 'Internal Server Error' });
+                res.status(500).json({ error: 'Internal Server Error', ideas: req.body.ideas });
                 client.close();
                 reject();
             } else {
 
-                if (req.body.length === 0) {
+                if (req.body.ideas.length === 0) {
                     res.status(200).json({
                         acknowledged: true,
+                        ideas: req.body.ideas
                     });
                     resolve();
                     return;
                 }
 
-                collection.insertMany(req.body, (err, result) => {
+                collection.insertMany(req.body.ideas, (err, result) => {
                     if (err) {
                         console.error(err);
-                        res.status(500).json({ error: 'Internal Server Error' });
+                        res.status(500).json({ error: 'Internal Server Error', ideas: req.body.ideas });
                         reject();
                     } else {
-                        res.status(200).json(result);
+                        res.status(200).json({ ...result, ideas: req.body.ideas });
                         resolve();
                     }
                     client.close();

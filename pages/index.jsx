@@ -30,27 +30,28 @@ export default function Home({ _ideas }) {
   }, [])
 
   const addIdea = (idea) => {
-    const newIdeas = [...ideas, {
+    const oldIdeas = [...ideas]
+    const newIdeas = [...oldIdeas, {
       ...idea,
       timestamp: Date.now(),
     }];
-    setIdeas(newIdeas)
+    // setIdeas(newIdeas)
     setAdding(false)
-    saveIdeas(newIdeas, false)
+    saveIdeas(oldIdeas, newIdeas, false)
   }
 
   const removeIdea = (timestamp) => {
     const idea = ideas.find(idea => idea.timestamp === timestamp);
     if (idea && confirm(`Are you sure you want to delete the idea "${idea.content}"?`) === true) {
-      setIdeas(() => {
-        const newIdeas = ideas.filter(idea => idea.timestamp !== timestamp)
-        saveIdeas(newIdeas, false);
-        return newIdeas;
-      })
+      const newIdeas = ideas.filter(idea => idea.timestamp !== timestamp)
+      saveIdeas(ideas, newIdeas, false);
     }
   }
 
-  const saveIdeas = async (__ideas, doAlert=true) => {
+  const saveIdeas = async (oldIdeas, newIdeas, doAlert=true) => {
+
+    const pass = prompt('Enter password to save ideas:');
+    if (pass == null || pass.length === 0) return;
 
     setSaving(true)
 
@@ -59,21 +60,29 @@ export default function Home({ _ideas }) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(__ideas)
+      body: JSON.stringify({
+        ideas: newIdeas,
+        password: pass
+      })
     })
 
     const ideas = await req.json()
 
+    setSaving(false)
+
     if (ideas.acknowledged) {
       if (doAlert)
         alert('Ideas saved!')
+      
+      if (ideas.ideas) {
+        setIdeas(ideas.ideas)
+      }
     }
     else {
-      alert('Error saving ideas: ' + JSON.stringify(ideas))
+      setIdeas(oldIdeas)
+
+      alert('Error saving ideas: ' + ideas.error ?? JSON.stringify(ideas))
     }
-
-    setSaving(false)
-
   }
 
   return (

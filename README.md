@@ -26,6 +26,8 @@ MONGODB_COLLECTION=`insert mongoDB collection name here`
 
 NEXT_PUBLIC_DEPLOY_URL=`insert deployment url here`
 
+PASSWORD=`insert password to add/delete ideas here`
+
 
 ## Next.js
 
